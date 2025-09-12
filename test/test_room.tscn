@@ -1,17 +1,116 @@
-[gd_scene load_steps=3 format=3 uid="uid://cjej5xrmm4td1"]
+[gd_scene load_steps=4 format=3 uid="uid://cjej5xrmm4td1"]
 
 [ext_resource type="PackedScene" uid="uid://do6wdb1ngw3qe" path="res://test/player.tscn" id="1_iiuq3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iiuq3"]
-size = Vector2(400, 20)
+size = Vector2(1000, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qlpi1"]
+size = Vector2(100, 20)
 
 [node name="TestRoom" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_iiuq3")]
-position = Vector2(100, 100)
+position = Vector2(35, 284)
+speed = null
+jump_velocity = null
+gravity = 1000.0
 
-[node name="Floor" type="StaticBody2D" parent="."]
+[node name="Platforms" type="Node2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
-position = Vector2(200, 200)
+[node name="Floor" type="StaticBody2D" parent="Platforms"]
+position = Vector2(2, 163)
+
+[node name="ColorRect" type="ColorRect" parent="Platforms/Floor"]
+offset_top = 200.0
+offset_right = 1000.0
+offset_bottom = 220.0
+color = Color(0.35, 0.22, 1, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Floor"]
+position = Vector2(500, 210)
 shape = SubResource("RectangleShape2D_iiuq3")
+
+[node name="Platform" type="StaticBody2D" parent="Platforms"]
+position = Vector2(-35, 165)
+
+[node name="ColorRect" type="ColorRect" parent="Platforms/Platform"]
+offset_left = 200.0
+offset_top = 130.0
+offset_right = 300.0
+offset_bottom = 150.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform"]
+position = Vector2(250, 140)
+shape = SubResource("RectangleShape2D_qlpi1")
+one_way_collision = true
+
+[node name="Platform2" type="StaticBody2D" parent="Platforms"]
+position = Vector2(96, 107)
+
+[node name="ColorRect" type="ColorRect" parent="Platforms/Platform2"]
+offset_left = 200.0
+offset_top = 130.0
+offset_right = 300.0
+offset_bottom = 150.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform2"]
+position = Vector2(250, 140)
+shape = SubResource("RectangleShape2D_qlpi1")
+one_way_collision = true
+
+[node name="Platform3" type="StaticBody2D" parent="Platforms"]
+position = Vector2(231, 51)
+
+[node name="ColorRect" type="ColorRect" parent="Platforms/Platform3"]
+offset_left = 200.0
+offset_top = 130.0
+offset_right = 300.0
+offset_bottom = 150.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform3"]
+position = Vector2(250, 140)
+shape = SubResource("RectangleShape2D_qlpi1")
+one_way_collision = true
+
+[node name="Platform4" type="StaticBody2D" parent="Platforms"]
+position = Vector2(-77, 101)
+
+[node name="ColorRect" type="ColorRect" parent="Platforms/Platform4"]
+offset_left = 200.0
+offset_top = 130.0
+offset_right = 300.0
+offset_bottom = 150.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform4"]
+position = Vector2(250, 140)
+shape = SubResource("RectangleShape2D_qlpi1")
+one_way_collision = true
+
+[node name="Platform5" type="StaticBody2D" parent="Platforms"]
+position = Vector2(-126, 37)
+
+[node name="ColorRect" type="ColorRect" parent="Platforms/Platform5"]
+offset_left = 200.0
+offset_top = 130.0
+offset_right = 300.0
+offset_bottom = 150.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform5"]
+position = Vector2(250, 140)
+shape = SubResource("RectangleShape2D_qlpi1")
+one_way_collision = true
+
+[node name="Platform6" type="StaticBody2D" parent="Platforms"]
+position = Vector2(247, 149)
+
+[node name="ColorRect" type="ColorRect" parent="Platforms/Platform6"]
+offset_left = 200.0
+offset_top = 130.0
+offset_right = 300.0
+offset_bottom = 150.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform6"]
+position = Vector2(250, 140)
+shape = SubResource("RectangleShape2D_qlpi1")
+one_way_collision = true
