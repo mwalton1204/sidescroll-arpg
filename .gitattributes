@@ -1,0 +1,28 @@
+# Auto-normalize line endings
+* text=auto eol=lf
+
+# Godot project files (force LF)
+*.gd      text eol=lf
+*.tscn    text eol=lf
+*.tres    text eol=lf
+*.godot   text eol=lf
+
+# Common text formats (force LF)
+*.md      text eol=lf
+*.json    text eol=lf
+*.yml     text eol=lf
+*.yaml    text eol=lf
+*.toml    text eol=lf
+*.cfg     text eol=lf
+
+# Binary assets (never modify)
+*.png     binary
+*.jpg     binary
+*.jpeg    binary
+*.ogg     binary
+*.wav     binary
+*.mp3     binary
+*.ttf     binary
+*.otf     binary
+*.svg     binary
+

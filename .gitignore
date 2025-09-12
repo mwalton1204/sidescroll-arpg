@@ -1,0 +1,15 @@
+# Godot 4+ specific ignores
+.godot/
+.import/
+
+# Export configs (machine-specific, regenerate on another PC)
+export.cfg
+export_presets.cfg
+
+# Android build directory
+/android/
+
+# OS-specific cruft
+.DS_Store      # macOS
+Thumbs.db      # Windows
+
