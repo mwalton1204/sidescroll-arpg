@@ -11,7 +11,8 @@ size = Vector2(100, 20)
 [node name="TestRoom" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_iiuq3")]
-position = Vector2(35, 284)
+position = Vector2(35, 283)
+jump_duration_factor = 0.4
 
 [node name="Platforms" type="Node2D" parent="."]
 
