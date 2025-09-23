@@ -12,6 +12,7 @@ size = Vector2(100, 20)
 
 [node name="Player" parent="." instance=ExtResource("1_iiuq3")]
 position = Vector2(35, 283)
+max_jumps = 5
 
 [node name="Platforms" type="Node2D" parent="."]
 
