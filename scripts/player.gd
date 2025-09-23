@@ -10,6 +10,7 @@ extends CharacterBody2D
 @export_range(0.0, 0.25, 0.01) var coyote_time: float = 0.1 ## Time after leaving a platform that jump is still possible (sec)
 @export_range(0.0, 1.0, 0.01) var jump_buffer_time: float = 0.1  ## Time before landing to buffer jump input
 @export var max_jumps: int = 1 ## Maximum number of jumps (1 = single jump, 2 = double jump, etc.)
+@export var max_fall_speed: float = 1000.0 ## Maximum downward speed (pixels/sec)
 
 # --- INTERNAL STATE ---
 
@@ -47,9 +48,11 @@ func _update_timers(delta: float, on_floor: bool) -> void:
 	jump_buffer_timer = max(jump_buffer_timer - delta, 0.0)
 
 func _apply_gravity(delta: float, on_floor: bool) -> void:
-	# Apply gravity if not on the ground
+	# Apply gravity if not on the ground and limit to max fall speed
 	if not on_floor:
 		velocity.y += gravity * delta
+		if velocity.y > max_fall_speed:
+			velocity.y = max_fall_speed
 
 func _handle_horizontal_movement(delta: float, on_floor: bool) -> void:
 	# Smoothly adjust speed multiplier based on whether on ground or in air
