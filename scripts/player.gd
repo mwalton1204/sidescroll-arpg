@@ -6,11 +6,13 @@ extends CharacterBody2D
 @export var jump_height: float = 75.0 ## Jump height (pixels)
 @export var jump_duration: float = 0.5 ## Time to reach jump apex (sec)
 @export_range(0.0, 20.0, 1.0) var air_lerp_factor: float = 3.0  ## How fast horizontal speed transitions in the air
+@export_range(0.0, 0.25, 0.01) var coyote_time: float = 0.1 ## Time after leaving a platform that jump is still possible (sec)
 
 # --- INTERNAL STATE ---
 var gravity: float
 var jump_force: float
 var speed_multiplier : float = 1.0 # Smoothed horizontal speed
+var coyote_timer: float = 0.0 # Timer for coyote time
 
 func _ready() -> void:
 	# Pre-calculate gravity and jump force for desired jump height/duration
@@ -26,8 +28,13 @@ func _physics_process(delta: float) -> void:
 # --- HELPER FUNCTIONS ---
 func _apply_gravity(delta: float) -> void:
 	# Apply gravity if not on floor
-	if not is_on_floor():
+	if is_on_floor():
+		coyote_timer = coyote_time
+		velocity.y = 0.0
+	else:
 		velocity.y += gravity * delta
+		coyote_timer = max(coyote_timer - delta, 0.0)
+
 
 func _handle_horizontal_movement(delta: float) -> void:
 	# Smoothly interpolate speed_multiplier toward target
@@ -40,5 +47,6 @@ func _handle_horizontal_movement(delta: float) -> void:
 
 func _handle_jump() -> void:
 	# Single jump
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+	if Input.is_action_just_pressed("ui_accept") and (is_on_floor() or coyote_timer > 0.0):
 		velocity.y = jump_force
+		coyote_timer = 0.0
