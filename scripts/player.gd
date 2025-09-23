@@ -1,37 +1,44 @@
 extends CharacterBody2D
 
-@export var speed : float = 200
-@export var air_speed_factor : float = 0.75       # fraction of speed while in air
-@export var jump_height : float = 85           # maximum jump height in pixels
-@export var jump_duration_factor : float = 0.6  # scales total jump time
-@export var air_lerp_factor : float = 0.2       # smoothing factor for horizontal speed in air
+# --- MOVEMENT PARAMETERS ---
+@export var speed: float = 200 ## Horizontal speed (pixels/sec)
+@export_range(0.1, 1.0, 0.01) var air_speed_multiplier: float = 0.75 ## Fraction of speed in the air
+@export var jump_height: float = 75.0 ## Jump height (pixels)
+@export var jump_duration: float = 0.5 ## Time to reach jump apex (sec)
+@export_range(0.0, 20.0, 1.0) var air_lerp_factor: float = 3.0  ## How fast horizontal speed transitions in the air
 
-func _physics_process(delta):
-	# Determine input direction
-	var input_direction = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
-	var target_speed = speed * input_direction
+# --- INTERNAL STATE ---
+var gravity: float
+var jump_force: float
+var speed_multiplier : float = 1.0 # Smoothed horizontal speed
 
-	# Reduce target speed if in air
-	if not is_on_floor():
-		target_speed *= air_speed_factor
-		# Smoothly interpolate from current x velocity to target
-		velocity.x = lerp(velocity.x, target_speed, air_lerp_factor)
-	else:
-		# On the ground, move directly
-		velocity.x = target_speed
+func _ready() -> void:
+	# Pre-calculate gravity and jump force for desired jump height/duration
+	gravity = (8.0 * jump_height) / (jump_duration * jump_duration)
+	jump_force = -(4.0 * jump_height) / jump_duration
 
-	# Compute effective gravity and jump velocity to preserve apex
-	var time_to_apex = 0.5 * sqrt(2 * jump_height / 100) * jump_duration_factor
-	var effective_gravity = 2 * jump_height / (time_to_apex * time_to_apex)
-	var jump_velocity_corrected = effective_gravity * time_to_apex
-
-	# Jump
-	if is_on_floor() and Input.is_action_just_pressed("ui_up"):
-		velocity.y = -jump_velocity_corrected  # up is negative in Godot
-
-	# Apply gravity
-	if not is_on_floor():
-		velocity.y += effective_gravity * delta
-
-	# Move the character
+func _physics_process(delta: float) -> void:
+	_apply_gravity(delta)
+	_handle_horizontal_movement(delta)
+	_handle_jump()
 	move_and_slide()
+
+# --- HELPER FUNCTIONS ---
+func _apply_gravity(delta: float) -> void:
+	# Apply gravity if not on floor
+	if not is_on_floor():
+		velocity.y += gravity * delta
+
+func _handle_horizontal_movement(delta: float) -> void:
+	# Smoothly interpolate speed_multiplier toward target
+	var target_speed_multiplier = 1.0 if is_on_floor() else air_speed_multiplier
+	speed_multiplier += (target_speed_multiplier - speed_multiplier) * air_lerp_factor * delta
+
+	# Apply horizontal input
+	var direction = Input.get_axis("ui_left", "ui_right")
+	velocity.x = direction * speed * speed_multiplier
+
+func _handle_jump() -> void:
+	# Single jump
+	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+		velocity.y = jump_force
