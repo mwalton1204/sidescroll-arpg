@@ -7,7 +7,6 @@ TODO: Finish dash implementation
 	- Allow air dashes toggleable in the inspector
 	- Move dash input to custom action
 	- Lerp velocity.y back into gravity instead of just instantly reapplying
-	- Make on_floor check a toggleable option for dashing
 """
 
 extends CharacterBody2D
