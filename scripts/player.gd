@@ -1,5 +1,6 @@
 """
-TODO: Finish dash implementation
+TODO: 
+	- Finish dash implementation
 	- Add dash_distance parameter
 	- Modify dash to use distance instead of time
 	- Allow dashing from standing still
