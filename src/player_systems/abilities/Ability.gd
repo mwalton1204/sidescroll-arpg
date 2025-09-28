@@ -29,7 +29,7 @@ var cooldown_time: float = 0.0
 var cooldown_timer: float = 0.0
 
 # Pre-Requisites
-var requirements: Array = [] # e.g. [{"type": "level", "value": 5}, {"type": "job", "value": "Warrior"}]
+@export var requirements: Array[AbilityRequirement] = []
 
 # Signals
 signal ability_unlocked
@@ -42,17 +42,8 @@ signal ability_used
 
 func can_unlock(player: Node) -> bool: # Checks ability pre-requisites
     for req in requirements:
-        match req.type:
-            "level":
-                if player.level < req.value:
-                    return false
-            "ability":
-                var ability = player.find_ability(req.ability_name)
-                if ability == null or ability.ability_level < req.value:
-                    return false
-            "job":
-                if player.job != req.value:
-                    return false
+        if not req.is_met(player):
+            return false
     return true
 
 func unlock(player: Node) -> void:
@@ -83,6 +74,14 @@ func activate(player: Node) -> void:
         cooldown_timer = cooldown_time
     ability_used.emit()
     _on_ability_activated()
+
+func get_requirements_description() -> String:
+    if requirements.empty():
+        return "No requirements"
+    var req_descriptions Array[String] = []
+    for req in requirements:
+        req_descriptions.append(req.get_description())
+    return ", ".join(req_descriptions)
 
 # --- Called each frame from Player.gd ---
 
