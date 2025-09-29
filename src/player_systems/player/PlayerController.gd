@@ -55,7 +55,12 @@ func _apply_gravity(delta: float, on_floor: bool) -> void:
 func _handle_horizontal_movement(delta: float, on_floor: bool) -> void:
 	# Smoothly adjust speed multiplier based on whether on ground or in air
 	var target_speed_multiplier = 1.0 if on_floor else air_speed_multiplier
-	speed_multiplier = lerp(speed_multiplier, target_speed_multiplier, 1.0 - exp(-air_lerp_factor * delta))   
+
+	# Instant reset on landing, smooth transition in air
+	if on_floor:
+		speed_multiplier = 1.0
+	else:
+		speed_multiplier = lerp(speed_multiplier, air_speed_multiplier, 1.0 - exp(-air_lerp_factor * delta))
 
 	var direction = Input.get_axis("ui_left", "ui_right") 
 	var target_velocity_x = direction * speed * speed_multiplier
