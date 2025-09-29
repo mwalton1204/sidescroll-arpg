@@ -71,11 +71,11 @@ func modify_mana(amount: int) -> void:
 	mana_modified.emit(current_mana, max_mana)
 
 func add_ability(ability: Ability) -> void:
-	if not find_ability(ability.name):
+	if not find_ability(ability.ability_name):
 		abilities.append(ability)
 		ability_added.emit(ability)
 	else:
-		push_warning("Ability '%s' already exists." % ability.name)
+		push_warning("Ability '%s' already exists." % ability.ability_name)
 
 func remove_ability(ability_name: String) -> void:
 	var ability = find_ability(ability_name)

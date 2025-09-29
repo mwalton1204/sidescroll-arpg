@@ -1,12 +1,11 @@
 """
-TODO for Player.gd:
-	- Add find_ability(ability_name: String) -> Ability method to retrieve abilities by name
-	- Ensure 'level' property exists and tracks player level
-	- Ensure 'job' property exists and tracks the player's current job/class
-	- Ensure 'mana' property exists and tracks the player's current mana
-	- Add logic for mana deduction when abilities are used (or confirm 'Ability.activate()' handles this)
-	- Consider managing a collection of abilities (e.g., 'abilities: Array' or 'Dictionary') for easy lookup and iteration
-	- Optional: connect Ability signals ('ability_unlocked', 'ability_upgraded', 'ability_failed_to_unlock', 'ability_failed_to_upgrade', 'ability_used') to appropriate player or UI handlers
+Ability System - Base class for all player abilities
+
+Override these methods in child classes:
+- _ability_logic(delta, player) - Core ability behavior
+- _on_ability_unlocked() - Custom unlock effects
+- _on_ability_upgraded() - Custom upgrade effects  
+- _on_ability_activated() - Animation/sound on activation
 """
 
 extends Node
