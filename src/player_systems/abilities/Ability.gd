@@ -12,6 +12,13 @@ TODO for Player.gd:
 extends Node
 class_name Ability
 
+# --- SIGNALS ---
+signal ability_unlocked
+signal ability_upgraded
+signal ability_failed_to_unlock
+signal ability_failed_to_upgrade
+signal ability_used
+
 # --- Core Ability Properties ---
 
 var is_unlocked: bool = false
@@ -21,22 +28,15 @@ var description: String = "No description available."
 var is_passive: bool = false
 var category: String = "General" # e.g. "Combat", "Movement", "Buff", "Debuff"
 var tags : Array = [] # e.g. ["Fire", "Physical", "Healing", "AOE", "Single Target"]
+
 @export var max_ability_level: int = 5
 @export var mana_cost: int = 0
 
-# Optional cooldown for abilities
 var cooldown_time: float = 0.0
 var cooldown_timer: float = 0.0
 
 # Pre-Requisites
 @export var requirements: Array[AbilityRequirement] = []
-
-# Signals
-signal ability_unlocked
-signal ability_upgraded
-signal ability_failed_to_unlock
-signal ability_failed_to_upgrade
-signal ability_used
 
 # --- Unlock / Upgrade ---
 

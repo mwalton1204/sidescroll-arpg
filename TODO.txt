@@ -1,0 +1,12 @@
+Player -> Ability
+
+- Implement find_ability(ability_name: String) -> Ability in Player.gd.
+- Deduct mana via modify_mana(-mana_cost) when abilities activate.
+- Connect Ability signals (ability_unlocked, ability_upgraded, ability_failed_to_unlock, ability_failed_to_upgrade, ability_used) to Player.gd or UI handlers.
+- Update Player.gd to call process_ability(delta, self) on all abilities each frame.
+- Add type hints to all Player.gd, Ability.gd, and AbilityRequirement.gd methods and exported variables.
+- Add signals for stat and job changes in Player.gd (stat_modified, job_changed) for UI or system integration.
+- Validate AbilityRequirement lookups and emit warnings if a referenced stat, ability, or item does not exist.
+- Consider refactoring inventory into a dedicated Inventory class/component for easier management.
+- Ensure passive abilities in Ability.gd don’t incorrectly decrement cooldown timers.
+- Optionally switch Player abilities storage to dictionary-based for faster lookups if large numbers of abilities are expected.
