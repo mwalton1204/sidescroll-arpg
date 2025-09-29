@@ -35,6 +35,10 @@ signal ability_removed(ability)
 @export var inventory: Dictionary = {} # e.g. {"Health Potion": 5, "Mana Potion": 3}
 
 func _ready() -> void:
+	# Add to "players" group for easy access
+	add_to_group("players")
+
+	# Ensure controller is assigned
 	if get_parent() is PlayerController:
 		controller = get_parent() as PlayerController
 	else:

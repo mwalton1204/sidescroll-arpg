@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cjej5xrmm4td1"]
+[gd_scene load_steps=5 format=3 uid="uid://cjej5xrmm4td1"]
 
 [ext_resource type="PackedScene" uid="uid://do6wdb1ngw3qe" path="res://test/player.tscn" id="1_iiuq3"]
+[ext_resource type="Script" uid="uid://bxahk6unc16ay" path="res://scripts/debug_label.gd" id="2_qlpi1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iiuq3"]
 size = Vector2(1000, 20)
@@ -13,6 +14,8 @@ size = Vector2(100, 20)
 [node name="Player" parent="." instance=ExtResource("1_iiuq3")]
 position = Vector2(35, 283)
 air_lerp_factor = 5.0
+
+[node name="Player" parent="Player" index="2" groups=["players"]]
 
 [node name="Platforms" type="Node2D" parent="."]
 
@@ -112,3 +115,11 @@ offset_bottom = 150.0
 position = Vector2(250, 140)
 shape = SubResource("RectangleShape2D_qlpi1")
 one_way_collision = true
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 24
+script = ExtResource("2_qlpi1")
+
+[editable path="Player"]
