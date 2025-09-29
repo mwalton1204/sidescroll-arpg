@@ -7,8 +7,11 @@ signal mana_modified(current, max)
 signal ability_added(ability)
 signal ability_removed(ability)
 
+# --- PLAYER CONTROLLER ---
+@export var controller: PlayerController
+
 # --- PLAYER PROPERTIES ---
-@export var name: String = "Player"
+@export var player_name: String = "Player"
 @export var level: int = 1
 @export var xp: int = 0
 @export var ability_points: int = 0
@@ -31,6 +34,13 @@ signal ability_removed(ability)
 @export var abilities: Array[Ability] = []
 @export var inventory: Dictionary = {} # e.g. {"Health Potion": 5, "Mana Potion": 3}
 
+func _ready() -> void:
+    if controller:
+        controller.name = "PlayerController"
+
+func _process(delta: float) -> void:
+    for ability in abilities:
+        ability.process_ability(delta)
 # --- GETTERS ---
 func find_ability(ability_name: String) -> Ability:
     for ability in abilities:

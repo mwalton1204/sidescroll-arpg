@@ -27,7 +27,7 @@ var name: String = "Unnamed Ability"
 var description: String = "No description available."
 var is_passive: bool = false
 var category: String = "General" # e.g. "Combat", "Movement", "Buff", "Debuff"
-var tags : Array = [] # e.g. ["Fire", "Physical", "Healing", "AOE", "Single Target"]
+var tags: Array = [] # e.g. ["Fire", "Physical", "Healing", "AOE", "Single Target"]
 
 @export var max_ability_level: int = 5
 @export var mana_cost: int = 0
@@ -64,12 +64,12 @@ func upgrade() -> void:
     _on_ability_upgraded()
 
 func can_use(player: Node) -> bool:
-    return is_unlocked and cooldown_timer <= 0.0 and player.mana >= mana_cost
+    return is_unlocked and cooldown_timer <= 0.0 and player.current_mana >= mana_cost
 
 func activate(player: Node) -> void:
     if not can_use(player):
         return
-    player.mana -= mana_cost
+    player.current_mana -= mana_cost
     if cooldown_time > 0.0:
         cooldown_timer = cooldown_time
     ability_used.emit()
@@ -78,7 +78,7 @@ func activate(player: Node) -> void:
 func get_requirements_description() -> String:
     if requirements.empty():
         return "No requirements"
-    var req_descriptions Array[String] = []
+    var req_descriptions: Array[String] = []
     for req in requirements:
         req_descriptions.append(req.get_description())
     return ", ".join(req_descriptions)

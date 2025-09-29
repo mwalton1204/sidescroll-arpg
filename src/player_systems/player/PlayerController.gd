@@ -1,9 +1,6 @@
 extends CharacterBody2D
 class_name PlayerController
 
-# --- REFERENCES ---
-@export var player: Player #Reference to Player node
-
 # --- MOVEMENT PARAMETERS ---
 @export var speed: float = 200 ## Horizontal speed (pixels/sec)
 @export_range(0.1, 1.0, 0.01) var air_speed_multiplier: float = 0.75 ## Fraction of speed in the air
