@@ -23,7 +23,7 @@ signal ability_used
 
 var is_unlocked: bool = false
 var ability_level: int = 0
-var name: String = "Unnamed Ability"
+var ability_name: String = "Unnamed Ability"
 var description: String = "No description available."
 var is_passive: bool = false
 var category: String = "General" # e.g. "Combat", "Movement", "Buff", "Debuff"
@@ -76,7 +76,7 @@ func activate(player: Node) -> void:
 	_on_ability_activated()
 
 func get_requirements_description() -> String:
-	if requirements.empty():
+	if requirements.is_empty():
 		return "No requirements"
 	var req_descriptions: Array[String] = []
 	for req in requirements:

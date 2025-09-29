@@ -35,8 +35,10 @@ signal ability_removed(ability)
 @export var inventory: Dictionary = {} # e.g. {"Health Potion": 5, "Mana Potion": 3}
 
 func _ready() -> void:
-	if controller:
-		controller.name = "PlayerController"
+	if get_parent() is PlayerController:
+		controller = get_parent() as PlayerController
+	else:
+		push_error("Player node must be a child of PlayerController node.")
 
 func _process(delta: float) -> void:
 	for ability in abilities:
@@ -44,7 +46,7 @@ func _process(delta: float) -> void:
 # --- GETTERS ---
 func find_ability(ability_name: String) -> Ability:
 	for ability in abilities:
-		if ability.name == ability_name:
+		if ability.ability_name == ability_name:
 			return ability
 	return null
 
