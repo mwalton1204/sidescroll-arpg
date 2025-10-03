@@ -124,4 +124,8 @@ theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 12
 script = ExtResource("2_qlpi1")
 
+[node name="PlayerCharacter" parent="." instance=ExtResource("1_iiuq3")]
+position = Vector2(363, 312)
+jump_height = 150.0
+
 [editable path="Player"]

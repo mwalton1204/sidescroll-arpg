@@ -17,7 +17,8 @@ func _process(_delta: float) -> void:
 	if player_node and player_node.controller:
 		var ctrl = player_node.controller
 		
-		text = "=== PLAYER INFO ===\n"
+		text = "FPS: %d\n" % Engine.get_frames_per_second()
+		text += "=== PLAYER INFO ===\n"
 		text += "Level: %d | XP: %d\n" % [player_node.level, player_node.xp]
 		text += "Job: %s\n" % player_node.job
 		text += "Health: %d/%d\n" % [player_node.current_health, player_node.max_health]
